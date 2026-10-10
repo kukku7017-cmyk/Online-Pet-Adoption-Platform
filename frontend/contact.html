@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact & Support — PawsConnect</title>
+    
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/neumorphism.css">
+    <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+
+    <header class="site-header">
+        <div class="app-container">
+            <nav class="nav-bar">
+                <a href="index.html" class="brand-logo">
+                    <div class="brand-icon">🐾</div>
+                    <span>Paws<span class="dot">Connect</span></span>
+                </a>
+                <ul class="nav-links">
+                    <li><a href="index.html" class="nav-link">Home</a></li>
+                    <li><a href="pets.html" class="nav-link">Browse Pets</a></li>
+                    <li><a href="about.html" class="nav-link">About Us</a></li>
+                    <li><a href="contact.html" class="nav-link active">Contact</a></li>
+                </ul>
+                <div class="nav-actions">
+                    <a href="login.html" class="nm-btn nm-btn-secondary nm-btn-sm">Sign In</a>
+                    <a href="register.html" class="nm-btn nm-btn-primary nm-btn-sm">Register</a>
+                </div>
+                <button class="mobile-nav-toggle" aria-label="Toggle navigation menu">☰</button>
+            </nav>
+        </div>
+    </header>
+
+    <main style="padding: 4rem 0 5rem;">
+        <div class="app-container">
+            <div class="section-header">
+                <span class="section-tag">Get In Touch</span>
+                <h1 class="section-title">We're Here to Help</h1>
+                <p class="section-desc">Have questions about adoption procedures, shelter partnerships, or technical support? Drop us a note.</p>
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1.2fr; gap: 3.5rem;">
+                <div>
+                    <div class="nm-card" style="margin-bottom: 2rem;">
+                        <h3 style="margin-bottom: 1rem; color: var(--primary);">Contact Details</h3>
+                        <p style="font-size: 0.95rem; margin-bottom: 0.75rem;"><strong>Support Email:</strong> support@pawsconnect.org</p>
+                        <p style="font-size: 0.95rem; margin-bottom: 0.75rem;"><strong>Shelter Inquiries:</strong> partners@pawsconnect.org</p>
+                        <p style="font-size: 0.95rem;"><strong>Platform Location:</strong> Austin, TX / Denver, CO</p>
+                    </div>
+
+                    <div class="nm-card-inset">
+                        <h4 style="margin-bottom: 0.75rem;">Frequently Asked Questions</h4>
+                        <div style="font-size: 0.9rem; color: var(--text-secondary); display: flex; flex-direction: column; gap: 0.75rem;">
+                            <div>
+                                <strong>How long does shelter review take?</strong>
+                                <p style="font-size: 0.825rem; color: var(--text-muted);">Typically 24 to 48 hours. You can track status on your Adopter dashboard.</p>
+                            </div>
+                            <div>
+                                <strong>Can I apply for multiple pets?</strong>
+                                <p style="font-size: 0.825rem; color: var(--text-muted);">Yes, but each pet requires its own application, and duplicates for the same pet are prevented.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="nm-card-lg">
+                    <h3 style="margin-bottom: 1.5rem;">Send a Message</h3>
+                    <form onsubmit="event.preventDefault(); UI.toast('Thank you! Your message has been received.', 'success'); this.reset();">
+                        <div class="form-group">
+                            <label class="form-label">Your Name</label>
+                            <input type="text" class="nm-input" placeholder="e.g. David Miller" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Email Address</label>
+                            <input type="email" class="nm-input" placeholder="e.g. david@example.com" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Subject</label>
+                            <input type="text" class="nm-input" placeholder="Inquiry about adoption process" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Message</label>
+                            <textarea class="nm-textarea" placeholder="How can we assist you today?" required></textarea>
+                        </div>
+                        <button type="submit" class="nm-btn nm-btn-primary nm-btn-block">Send Message</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="site-footer">
+        <div class="app-container" style="text-align: center;">
+            <p>&copy; 2026 PawsConnect Platform. Responsive support for all users.</p>
+        </div>
+    </footer>
+
+    <script src="js/api.js"></script>
+    <script src="js/ui.js"></script>
+    <script src="js/auth.js"></script>
+</body>
+</html>

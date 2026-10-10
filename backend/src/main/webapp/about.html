@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us — PawsConnect</title>
+    
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/neumorphism.css">
+    <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+
+    <header class="site-header">
+        <div class="app-container">
+            <nav class="nav-bar">
+                <a href="index.html" class="brand-logo">
+                    <div class="brand-icon">🐾</div>
+                    <span>Paws<span class="dot">Connect</span></span>
+                </a>
+                <ul class="nav-links">
+                    <li><a href="index.html" class="nav-link">Home</a></li>
+                    <li><a href="pets.html" class="nav-link">Browse Pets</a></li>
+                    <li><a href="about.html" class="nav-link active">About Us</a></li>
+                    <li><a href="contact.html" class="nav-link">Contact</a></li>
+                </ul>
+                <div class="nav-actions">
+                    <a href="login.html" class="nm-btn nm-btn-secondary nm-btn-sm">Sign In</a>
+                    <a href="register.html" class="nm-btn nm-btn-primary nm-btn-sm">Register</a>
+                </div>
+                <button class="mobile-nav-toggle" aria-label="Toggle navigation menu">☰</button>
+            </nav>
+        </div>
+    </header>
+
+    <main style="padding: 4rem 0 5rem;">
+        <div class="app-container">
+            <div class="section-header">
+                <span class="section-tag">Our Mission</span>
+                <h1 class="section-title">Bridging Rescues with Loving Homes</h1>
+                <p class="section-desc">PawsConnect was built to eliminate fragmentation in animal welfare by unifying shelters, ethical guidelines, and compassionate adopters.</p>
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; margin-bottom: 4rem; align-items: center;">
+                <div class="nm-card">
+                    <h2 style="font-size: 1.75rem; color: var(--primary); margin-bottom: 1rem;">Why We Exist</h2>
+                    <p style="line-height: 1.8; color: var(--text-secondary); margin-bottom: 1rem;">
+                        Traditional pet adoption often suffers from paperwork bottlenecks, unverified third-party classifieds, and lack of direct communication between shelter staff and adopters.
+                    </p>
+                    <p style="line-height: 1.8; color: var(--text-secondary);">
+                        Our platform provides an integrated Java backend built with Jakarta Servlets, JDBC, and MySQL ensuring absolute transactional integrity and role-based data security.
+                    </p>
+                </div>
+
+                <div class="nm-card-lg" style="text-align: center;">
+                    <div style="font-size: 3rem; margin-bottom: 1rem;">🛡️</div>
+                    <h3 style="margin-bottom: 0.75rem;">Platform Principles</h3>
+                    <ul style="text-align: left; list-style: none; display: flex; flex-direction: column; gap: 0.75rem; color: var(--text-secondary); font-size: 0.95rem;">
+                        <li>✔️ <strong>100% Verified Shelters:</strong> Every listing is submitted by a registered organization.</li>
+                        <li>✔️ <strong>Administrative Moderation:</strong> Every animal listing is reviewed before public display.</li>
+                        <li>✔️ <strong>Zero Commercial Breeding:</strong> Focused strictly on rescue and adoption.</li>
+                        <li>✔️ <strong>Atomic Adoptions:</strong> Race conditions are prevented via ACID database transactions.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="site-footer">
+        <div class="app-container" style="text-align: center;">
+            <p>&copy; 2026 PawsConnect Platform. Dedicated to ethical pet adoption.</p>
+        </div>
+    </footer>
+
+    <script src="js/api.js"></script>
+    <script src="js/ui.js"></script>
+    <script src="js/auth.js"></script>
+</body>
+</html>

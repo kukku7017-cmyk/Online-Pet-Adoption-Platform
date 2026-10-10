@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adopter Dashboard — PawsConnect</title>
+    
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/neumorphism.css">
+    <link rel="stylesheet" href="../css/responsive.css">
+</head>
+<body>
+
+    <header class="site-header">
+        <div class="app-container">
+            <nav class="nav-bar">
+                <a href="../index.html" class="brand-logo">
+                    <div class="brand-icon">🐾</div>
+                    <span>Paws<span class="dot">Connect</span></span>
+                </a>
+                <span class="nm-badge nm-badge-info" style="font-size: 0.8rem;">Adopter Portal</span>
+                <div class="nav-actions">
+                    <a href="../pets.html" class="nm-btn nm-btn-primary nm-btn-sm">Browse Available Pets</a>
+                    <button type="button" onclick="Auth.logout()" class="nm-btn nm-btn-secondary nm-btn-sm">Logout</button>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <div class="dashboard-layout">
+        <!-- Sidebar Navigation -->
+        <aside class="dashboard-sidebar">
+            <div class="sidebar-user">
+                <div class="sidebar-avatar">👤</div>
+                <div>
+                    <strong id="adopterName" style="display: block; font-size: 0.95rem;">Adopter</strong>
+                    <span class="nm-badge nm-badge-info" style="font-size: 0.7rem;">ADOPTER</span>
+                </div>
+            </div>
+
+            <ul class="sidebar-nav">
+                <li><a href="#applications" class="sidebar-link active" data-tab="applications">📋 My Applications</a></li>
+                <li><a href="#messages" class="sidebar-link" data-tab="messages">💬 Shelter Messages</a></li>
+                <li><a href="#profile" class="sidebar-link" data-tab="profile">⚙️ Profile Settings</a></li>
+            </ul>
+        </aside>
+
+        <!-- Main Workspace -->
+        <main class="dashboard-main">
+            <!-- 1. Applications Tracker Tab -->
+            <section id="tab-applications" class="tab-content">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+                    <div>
+                        <span class="section-tag">Status Tracking</span>
+                        <h1 style="font-size: 2.25rem;">My Submitted Applications</h1>
+                    </div>
+                    <a href="../pets.html" class="nm-btn nm-btn-secondary">+ Apply for Another Pet</a>
+                </div>
+
+                <div class="nm-table-wrapper">
+                    <table class="nm-table">
+                        <thead>
+                            <tr>
+                                <th>App ID</th>
+                                <th>Companion</th>
+                                <th>Submitted Date</th>
+                                <th>Status</th>
+                                <th>Shelter Review Notes</th>
+                                <th>Details</th>
+                            </tr>
+                        </thead>
+                        <tbody id="adopterAppsTableBody">
+                            <!-- Populated dynamically -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- 2. Messages Tab -->
+            <section id="tab-messages" class="tab-content" style="display: none;">
+                <div class="section-header" style="text-align: left; margin-bottom: 1.5rem;">
+                    <span class="section-tag">Direct Communication</span>
+                    <h2 style="font-size: 2rem;">Messages with Shelter Managers</h2>
+                </div>
+
+                <div style="display: grid; grid-template-columns: 320px 1fr; gap: 1.5rem; height: 600px;">
+                    <!-- Threads list -->
+                    <div class="nm-card-inset" style="overflow-y: auto;" id="adopterConversationsList">
+                        <!-- Populated dynamically -->
+                    </div>
+
+                    <!-- Chat pane -->
+                    <div class="nm-card" style="display: flex; flex-direction: column; height: 100%;">
+                        <div style="padding-bottom: 1rem; border-bottom: 1px solid var(--border-subtle); margin-bottom: 1rem;">
+                            <strong id="adopterChatRecipient" style="font-size: 1.1rem; color: var(--primary);">Select a conversation thread</strong>
+                        </div>
+
+                        <div id="adopterMessagesContainer" style="flex: 1; overflow-y: auto; padding: 0.5rem; display: flex; flex-direction: column;">
+                            <div style="text-align: center; color: var(--text-muted); margin: auto;">Select an application thread on the left to chat with the rescue shelter.</div>
+                        </div>
+
+                        <div style="display: flex; gap: 0.75rem; margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--border-subtle);">
+                            <input type="text" class="nm-input" id="adopterChatInput" placeholder="Type a message to the shelter..." onkeydown="if(event.key==='Enter') Adopter.sendMessage()">
+                            <button class="nm-btn nm-btn-primary" onclick="Adopter.sendMessage()">Send</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 3. Profile Tab -->
+            <section id="tab-profile" class="tab-content" style="display: none;">
+                <div class="section-header" style="text-align: left; margin-bottom: 1.5rem;">
+                    <span class="section-tag">Account Management</span>
+                    <h2 style="font-size: 2rem;">My Profile & Contact Details</h2>
+                </div>
+
+                <div class="nm-card" style="max-width: 600px;">
+                    <form onsubmit="Adopter.saveProfile(event)">
+                        <div class="form-group">
+                            <label class="form-label" for="profileFullName">Full Name *</label>
+                            <input type="text" class="nm-input" id="profileFullName" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="profileEmail">Email Address (Read Only)</label>
+                            <input type="email" class="nm-input" id="profileEmail" disabled>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="profilePhone">Phone Number</label>
+                            <input type="tel" class="nm-input" id="profilePhone" placeholder="+1-555-0100">
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="profileAddress">Residential Address / City</label>
+                            <input type="text" class="nm-input" id="profileAddress" placeholder="Austin, TX">
+                        </div>
+
+                        <button type="submit" class="nm-btn nm-btn-primary nm-btn-block" style="margin-top: 1.5rem;">Save Profile Changes</button>
+                    </form>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="../js/api.js"></script>
+    <script src="../js/ui.js"></script>
+    <script src="../js/auth.js"></script>
+    <script src="../js/adopter.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            Adopter.init();
+        });
+    </script>
+</body>
+</html>

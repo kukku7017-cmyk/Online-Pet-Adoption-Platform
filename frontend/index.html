@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PawsConnect — Find Loving Homes for Rescued Pets</title>
+    <meta name="description" content="A modern, verified platform connecting compassionate shelters and adopters for responsible pet adoptions.">
+    
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/neumorphism.css">
+    <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+
+    <!-- Header Navigation -->
+    <header class="site-header">
+        <div class="app-container">
+            <nav class="nav-bar">
+                <a href="index.html" class="brand-logo" id="brandLogo">
+                    <div class="brand-icon">🐾</div>
+                    <span>Paws<span class="dot">Connect</span></span>
+                </a>
+
+                <ul class="nav-links" id="navLinks">
+                    <li><a href="index.html" class="nav-link active">Home</a></li>
+                    <li><a href="pets.html" class="nav-link">Browse Pets</a></li>
+                    <li><a href="about.html" class="nav-link">About Us</a></li>
+                    <li><a href="contact.html" class="nav-link">Contact</a></li>
+                </ul>
+
+                <div class="nav-actions">
+                    <a href="login.html" class="nm-btn nm-btn-secondary nm-btn-sm">Sign In</a>
+                    <a href="register.html" class="nm-btn nm-btn-primary nm-btn-sm">Register</a>
+                </div>
+
+                <button class="mobile-nav-toggle" aria-label="Toggle navigation menu">☰</button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Hero Section -->
+        <section class="hero-section">
+            <div class="app-container">
+                <div class="hero-grid">
+                    <div class="hero-content">
+                        <span class="section-tag">Compassionate Adoption Platform</span>
+                        <h1>Find Your Forever <span class="highlight">Companion</span> Today</h1>
+                        <p>
+                            Connect directly with verified local shelters, explore medically checked rescue pets, and complete ethical adoption applications in minutes.
+                        </p>
+                        <div class="hero-buttons">
+                            <a href="pets.html" class="nm-btn nm-btn-primary nm-btn-lg" id="btnBrowseHero">🐾 Browse Available Pets</a>
+                            <a href="register.html?role=SHELTER" class="nm-btn nm-btn-secondary nm-btn-lg" id="btnShelterHero">Register as Shelter</a>
+                        </div>
+                        <div class="hero-stats">
+                            <div class="hero-stat-card">
+                                <div class="hero-stat-value" id="heroStatPets">45+</div>
+                                <div class="hero-stat-label">Pets Listed</div>
+                            </div>
+                            <div class="hero-stat-card">
+                                <div class="hero-stat-value" id="heroStatAdoptions">120+</div>
+                                <div class="hero-stat-label">Loving Homes Found</div>
+                            </div>
+                            <div class="hero-stat-card">
+                                <div class="hero-stat-value" id="heroStatShelters">15+</div>
+                                <div class="hero-stat-label">Partner Shelters</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="hero-image-wrapper">
+                        <div class="hero-image-card">
+                            <img src="https://images.unsplash.com/photo-1552053831-71594a27632d?auto=format&fit=crop&w=800&q=80"
+                                 alt="Happy Golden Retriever ready for adoption">
+                        </div>
+                        <div class="hero-badge-floating">
+                            <div style="font-size: 1.75rem;">🩺</div>
+                            <div>
+                                <strong style="font-size: 0.9rem; color: var(--text-primary); display: block;">100% Health Checked</strong>
+                                <span style="font-size: 0.775rem; color: var(--text-muted);">Vaccinated & Shelter Screened</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Category Filters -->
+        <section style="padding: 2rem 0 1rem;">
+            <div class="app-container">
+                <div class="filter-bar">
+                    <button class="filter-pill active" data-species="ALL" onclick="Pets.setSpecies('ALL', this)">All Pets</button>
+                    <button class="filter-pill" data-species="Dog" onclick="Pets.setSpecies('Dog', this)">🐕 Dogs</button>
+                    <button class="filter-pill" data-species="Cat" onclick="Pets.setSpecies('Cat', this)">🐈 Cats</button>
+                    <button class="filter-pill" data-species="Rabbit" onclick="Pets.setSpecies('Rabbit', this)">🐇 Rabbits</button>
+                    <button class="filter-pill" data-species="Bird" onclick="Pets.setSpecies('Bird', this)">🦜 Birds</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Featured Pets Section -->
+        <section style="padding: 2rem 0 4rem;">
+            <div class="app-container">
+                <div class="section-header">
+                    <span class="section-tag">Waiting For You</span>
+                    <h2 class="section-title">Featured Companions</h2>
+                    <p class="section-desc">Every pet is lovingly fostered and vetted by our registered animal welfare partners.</p>
+                </div>
+
+                <div class="pet-grid" id="featuredPetsGrid">
+                    <!-- Loaded dynamically via Fetch API from /api/pets/public -->
+                </div>
+
+                <div style="text-align: center;">
+                    <a href="pets.html" class="nm-btn nm-btn-primary nm-btn-lg">View All Available Pets &rarr;</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- How It Works Section -->
+        <section style="padding: 4.5rem 0; background: var(--bg-surface); box-shadow: inset 0 4px 12px rgba(209, 217, 230, 0.4);">
+            <div class="app-container">
+                <div class="section-header">
+                    <span class="section-tag">Simple & Transparent</span>
+                    <h2 class="section-title">How Adoption Works</h2>
+                    <p class="section-desc">Our 4-step process ensures both pet wellbeing and lifelong compatibility.</p>
+                </div>
+
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 2rem;">
+                    <div class="nm-card" style="text-align: center;">
+                        <div class="brand-icon" style="margin: 0 auto 1.25rem; font-size: 1.5rem;">1</div>
+                        <h3 style="font-size: 1.2rem; margin-bottom: 0.75rem;">Browse & Select</h3>
+                        <p style="font-size: 0.9rem; color: var(--text-secondary);">
+                            Filter by species, breed, age, and energy level to match your living arrangement.
+                        </p>
+                    </div>
+
+                    <div class="nm-card" style="text-align: center;">
+                        <div class="brand-icon" style="margin: 0 auto 1.25rem; font-size: 1.5rem;">2</div>
+                        <h3 style="font-size: 1.2rem; margin-bottom: 0.75rem;">Submit Questionnaire</h3>
+                        <p style="font-size: 0.9rem; color: var(--text-secondary);">
+                            Complete our standardized application detailing your home environment and pet experience.
+                        </p>
+                    </div>
+
+                    <div class="nm-card" style="text-align: center;">
+                        <div class="brand-icon" style="margin: 0 auto 1.25rem; font-size: 1.5rem;">3</div>
+                        <h3 style="font-size: 1.2rem; margin-bottom: 0.75rem;">Shelter Review & Chat</h3>
+                        <p style="font-size: 0.9rem; color: var(--text-secondary);">
+                            The shelter reviews your profile and connects through our built-in secure messaging channel.
+                        </p>
+                    </div>
+
+                    <div class="nm-card" style="text-align: center;">
+                        <div class="brand-icon" style="margin: 0 auto 1.25rem; font-size: 1.5rem;">4</div>
+                        <h3 style="font-size: 1.2rem; margin-bottom: 0.75rem;">Welcome Home</h3>
+                        <p style="font-size: 0.9rem; color: var(--text-secondary);">
+                            Finalize adoption details, pick up your new companion, and begin your journey together!
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Responsible Adoption Benefits -->
+        <section style="padding: 5rem 0;">
+            <div class="app-container">
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 3.5rem; align-items: center;">
+                    <div>
+                        <span class="section-tag">Ethical Adoption</span>
+                        <h2 class="section-title">Why Adopt Through PawsConnect?</h2>
+                        <p style="color: var(--text-secondary); margin-bottom: 1.5rem; line-height: 1.8;">
+                            Adopting saves two lives: the pet you bring into your family, and the shelter space opened for another rescued animal in urgent need.
+                        </p>
+                        <div style="display: flex; flex-direction: column; gap: 1rem;">
+                            <div class="nm-card-sm" style="display: flex; gap: 1rem; align-items: center;">
+                                <span style="font-size: 1.5rem;">✅</span>
+                                <div>
+                                    <strong>No Puppy Mills or Unethical Breeders</strong>
+                                    <p style="font-size: 0.85rem; color: var(--text-muted);">All pets belong to registered rescue organizations.</p>
+                                </div>
+                            </div>
+                            <div class="nm-card-sm" style="display: flex; gap: 1rem; align-items: center;">
+                                <span style="font-size: 1.5rem;">🩺</span>
+                                <div>
+                                    <strong>Upfront Veterinary Disclosures</strong>
+                                    <p style="font-size: 0.85rem; color: var(--text-muted);">Full transparency regarding vaccinations, spay/neuter, and health.</p>
+                                </div>
+                            </div>
+                            <div class="nm-card-sm" style="display: flex; gap: 1rem; align-items: center;">
+                                <span style="font-size: 1.5rem;">🔒</span>
+                                <div>
+                                    <strong>Strict Moderation & Data Security</strong>
+                                    <p style="font-size: 0.85rem; color: var(--text-muted);">Role-based access safeguards your personal contact details.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <div class="nm-card-lg" style="text-align: center; padding: 3rem 2rem;">
+                            <img src="https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?auto=format&fit=crop&w=700&q=80"
+                                 alt="Happy rescued Siamese cat" style="border-radius: var(--radius-lg); margin-bottom: 1.5rem; height: 280px; width: 100%; object-fit: cover;">
+                            <h3 style="margin-bottom: 0.5rem;">Ready to Make a Difference?</h3>
+                            <p style="font-size: 0.95rem; color: var(--text-secondary); margin-bottom: 1.5rem;">
+                                Hundreds of animals are waiting for their second chance at love and safety.
+                            </p>
+                            <a href="register.html" class="nm-btn nm-btn-primary nm-btn-block">Create Adopter Account</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sample Testimonials -->
+        <section style="padding: 4rem 0; background: var(--bg-surface);">
+            <div class="app-container">
+                <div class="section-header">
+                    <span class="section-tag">Sample Stories</span>
+                    <h2 class="section-title">Happy Tails & Testimonials</h2>
+                    <p class="section-desc">Experiences from our community adopters (Sample demonstration content).</p>
+                </div>
+
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem;">
+                    <div class="nm-card">
+                        <p style="font-style: italic; color: var(--text-secondary); margin-bottom: 1.25rem;">
+                            "The adoption process for Bella was completely seamless. Happy Paws answered all our questions right through the messaging portal, and Bella has completed our family."
+                        </p>
+                        <div style="display: flex; align-items: center; gap: 0.75rem;">
+                            <div class="brand-icon" style="font-size: 1rem;">SJ</div>
+                            <div>
+                                <strong style="font-size: 0.95rem;">Sarah Jenkins</strong>
+                                <span style="display: block; font-size: 0.8rem; color: var(--text-muted);">Adopted Bella (Golden Retriever)</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="nm-card">
+                        <p style="font-style: italic; color: var(--text-secondary); margin-bottom: 1.25rem;">
+                            "As a first-time cat owner, having detailed medical history and behavior notes upfront gave me total confidence. Luna is thriving in her new home!"
+                        </p>
+                        <div style="display: flex; align-items: center; gap: 0.75rem;">
+                            <div class="brand-icon" style="font-size: 1rem;">PS</div>
+                            <div>
+                                <strong style="font-size: 0.95rem;">Priya Sharma</strong>
+                                <span style="display: block; font-size: 0.8rem; color: var(--text-muted);">Adopted Luna (Siamese Mix)</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Adoption Application Modal -->
+    <div class="nm-modal-backdrop" id="adoptionAppModal">
+        <div class="nm-modal">
+            <div class="nm-modal-header">
+                <div>
+                    <h3 style="margin-bottom: 0.25rem;">Adoption Application</h3>
+                    <p style="font-size: 0.85rem; color: var(--text-muted);">Applying for: <strong id="appPetName" style="color: var(--primary);">Pet</strong></p>
+                </div>
+                <button class="nm-modal-close" aria-label="Close dialog">&times;</button>
+            </div>
+
+            <form id="adoptionAppForm" onsubmit="event.preventDefault(); Applications.submit(this);">
+                <input type="hidden" id="appPetId">
+
+                <div class="form-group">
+                    <label class="form-label" for="appHomeType">Home Type *</label>
+                    <select class="nm-select" id="appHomeType" required>
+                        <option value="">Select your dwelling type...</option>
+                        <option value="Single Family Home">Single Family Home</option>
+                        <option value="Apartment / Condo">Apartment / Condo</option>
+                        <option value="Townhouse">Townhouse</option>
+                        <option value="Farm / Rural">Farm / Rural</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="appLiving">Living & Yard Arrangement *</label>
+                    <input type="text" class="nm-input" id="appLiving" placeholder="e.g. Own home with 6ft fenced yard, or Landlord approved lease" required>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="appMembers">Household Members *</label>
+                    <input type="number" class="nm-input" id="appMembers" min="1" max="20" value="1" required>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="appExperience">Previous Pet Experience *</label>
+                    <textarea class="nm-textarea" id="appExperience" placeholder="Describe your experience with this species and previous pets..." required></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="appReason">Reason for Adoption *</label>
+                    <textarea class="nm-textarea" id="appReason" placeholder="Why would you like to adopt this specific companion?" required></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="appCare">Care & Exercise Commitment *</label>
+                    <textarea class="nm-textarea" id="appCare" placeholder="How many hours of attention, exercise, and veterinary care can you provide daily/yearly?" required></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label class="nm-checkbox-wrapper">
+                        <input type="checkbox" id="appTerms" required>
+                        <span>I understand that pet adoption is a lifelong commitment and agree to undergo shelter verification and responsible pet ownership standards.</span>
+                    </label>
+                </div>
+
+                <div style="display: flex; gap: 1rem; margin-top: 1.5rem;">
+                    <button type="button" class="nm-btn nm-btn-secondary" style="flex: 1;" onclick="UI.closeModal('adoptionAppModal')">Cancel</button>
+                    <button type="submit" class="nm-btn nm-btn-primary" style="flex: 2;">Submit Adoption Application</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="app-container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="index.html" class="brand-logo">
+                        <div class="brand-icon">🐾</div>
+                        <span>Paws<span class="dot">Connect</span></span>
+                    </a>
+                    <p>Connecting verified shelters and caring adopters to ensure every rescued pet finds a loving, safe, and permanent home.</p>
+                </div>
+
+                <div class="footer-column">
+                    <h4>Navigation</h4>
+                    <ul class="footer-links">
+                        <li><a href="index.html" class="footer-link">Home</a></li>
+                        <li><a href="pets.html" class="footer-link">Browse Pets</a></li>
+                        <li><a href="about.html" class="footer-link">About Mission</a></li>
+                        <li><a href="contact.html" class="footer-link">Support & FAQ</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-column">
+                    <h4>Account</h4>
+                    <ul class="footer-links">
+                        <li><a href="login.html" class="footer-link">Sign In</a></li>
+                        <li><a href="register.html" class="footer-link">Register Adopter</a></li>
+                        <li><a href="register.html?role=SHELTER" class="footer-link">Register Shelter</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-column">
+                    <h4>Review 1 Submission</h4>
+                    <p style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 0.75rem;">
+                        Java Web-Based Project (Pre-Midterm). Full Jakarta EE 10, Servlets, JDBC & MySQL stack.
+                    </p>
+                    <span class="nm-badge nm-badge-success">Status: Review 1 Complete</span>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2026 PawsConnect Platform. All rights reserved.</p>
+                <p>Built with Java Servlets 6.0, JDBC, MySQL 8, and Modern Neumorphism.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="js/api.js"></script>
+    <script src="js/ui.js"></script>
+    <script src="js/validation.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/pets.js"></script>
+    <script src="js/applications.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            Pets.loadFeaturedPets('featuredPetsGrid');
+        });
+    </script>
+</body>
+</html>

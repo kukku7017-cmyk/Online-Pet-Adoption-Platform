@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Administrator Dashboard — PawsConnect</title>
+    
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/neumorphism.css">
+    <link rel="stylesheet" href="../css/responsive.css">
+</head>
+<body>
+
+    <header class="site-header">
+        <div class="app-container">
+            <nav class="nav-bar">
+                <a href="../index.html" class="brand-logo">
+                    <div class="brand-icon">🐾</div>
+                    <span>Paws<span class="dot">Connect</span></span>
+                </a>
+                <span class="nm-badge nm-badge-info" style="font-size: 0.8rem;">Administrator Portal</span>
+                <div class="nav-actions">
+                    <button type="button" onclick="Auth.logout()" class="nm-btn nm-btn-secondary nm-btn-sm">Logout</button>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <div class="dashboard-layout">
+        <!-- Sidebar Navigation -->
+        <aside class="dashboard-sidebar">
+            <div class="sidebar-user">
+                <div class="sidebar-avatar">ADM</div>
+                <div>
+                    <strong id="adminName" style="display: block; font-size: 0.95rem;">Admin User</strong>
+                    <span class="nm-badge nm-badge-info" style="font-size: 0.7rem;">ADMIN</span>
+                </div>
+            </div>
+
+            <ul class="sidebar-nav">
+                <li><a href="#analytics" class="sidebar-link active" data-tab="analytics">📊 Platform Analytics</a></li>
+                <li><a href="#moderation" class="sidebar-link" data-tab="moderation">🛡️ Pet Listing Moderation</a></li>
+                <li><a href="#users" class="sidebar-link" data-tab="users">👥 User Management</a></li>
+                <li><a href="#settings" class="sidebar-link" data-tab="settings">⚙️ System Settings</a></li>
+                <li><a href="#logs" class="sidebar-link" data-tab="logs">📜 Security Audit Logs</a></li>
+            </ul>
+        </aside>
+
+        <!-- Main Workspace -->
+        <main class="dashboard-main">
+            <!-- 1. Analytics Tab -->
+            <section id="tab-analytics" class="tab-content">
+                <div class="section-header" style="text-align: left; margin-bottom: 2rem;">
+                    <span class="section-tag">Database-Derived Metrics</span>
+                    <h1 style="font-size: 2.25rem;">Platform Analytics Overview</h1>
+                </div>
+
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.5rem; margin-bottom: 2.5rem;">
+                    <div class="nm-card-sm" style="text-align: center;">
+                        <span class="form-hint">Total Registered Users</span>
+                        <div class="hero-stat-value" id="statTotalUsers">0</div>
+                    </div>
+                    <div class="nm-card-sm" style="text-align: center;">
+                        <span class="form-hint">Registered Shelters</span>
+                        <div class="hero-stat-value" id="statTotalShelters" style="color: var(--teal);">0</div>
+                    </div>
+                    <div class="nm-card-sm" style="text-align: center;">
+                        <span class="form-hint">Registered Adopters</span>
+                        <div class="hero-stat-value" id="statTotalAdopters" style="color: var(--accent-blue);">0</div>
+                    </div>
+                    <div class="nm-card-sm" style="text-align: center;">
+                        <span class="form-hint">Total Rescued Pets</span>
+                        <div class="hero-stat-value" id="statTotalPets">0</div>
+                    </div>
+                    <div class="nm-card-sm" style="text-align: center;">
+                        <span class="form-hint">Pending Pet Listings</span>
+                        <div class="hero-stat-value" id="statPendingPets" style="color: var(--warning);">0</div>
+                    </div>
+                    <div class="nm-card-sm" style="text-align: center;">
+                        <span class="form-hint">Active Applications</span>
+                        <div class="hero-stat-value" id="statPendingApps" style="color: var(--accent-purple);">0</div>
+                    </div>
+                    <div class="nm-card-sm" style="text-align: center;">
+                        <span class="form-hint">Completed Adoptions</span>
+                        <div class="hero-stat-value" id="statApprovedAdoptions" style="color: var(--success);">0</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 2. Moderation Tab -->
+            <section id="tab-moderation" class="tab-content" style="display: none;">
+                <div class="section-header" style="text-align: left; margin-bottom: 1.5rem;">
+                    <span class="section-tag">Content Verification</span>
+                    <h2 style="font-size: 2rem;">Pending Pet Listings Moderation</h2>
+                    <p style="color: var(--text-muted);">Ensure listings adhere to ethical rescue guidelines before appearing in public browsing.</p>
+                </div>
+
+                <div class="nm-table-wrapper">
+                    <table class="nm-table">
+                        <thead>
+                            <tr>
+                                <th>Photo</th>
+                                <th>Pet Name</th>
+                                <th>Species / Breed</th>
+                                <th>Shelter Partner</th>
+                                <th>Location</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="pendingPetsTableBody">
+                            <!-- Populated dynamically -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- 3. Users Tab -->
+            <section id="tab-users" class="tab-content" style="display: none;">
+                <div class="section-header" style="text-align: left; margin-bottom: 1.5rem;">
+                    <span class="section-tag">Access Governance</span>
+                    <h2 style="font-size: 2rem;">User Directory & Account Status</h2>
+                    <p style="color: var(--text-muted);">Activate or deactivate accounts. Last remaining active administrator is protected.</p>
+                </div>
+
+                <div class="nm-table-wrapper">
+                    <table class="nm-table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Full Name</th>
+                                <th>Email</th>
+                                <th>Role</th>
+                                <th>Status</th>
+                                <th>Phone</th>
+                                <th>Manage</th>
+                            </tr>
+                        </thead>
+                        <tbody id="usersTableBody">
+                            <!-- Populated dynamically -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- 4. Settings Tab -->
+            <section id="tab-settings" class="tab-content" style="display: none;">
+                <div class="section-header" style="text-align: left; margin-bottom: 1.5rem;">
+                    <span class="section-tag">Configuration</span>
+                    <h2 style="font-size: 2rem;">Configurable Platform Parameters</h2>
+                    <p style="color: var(--text-muted);">Dynamically stored in MySQL database (system_settings table).</p>
+                </div>
+
+                <div class="nm-card" id="settingsList" style="max-width: 780px;">
+                    <!-- Populated dynamically -->
+                </div>
+            </section>
+
+            <!-- 5. Audit Logs Tab -->
+            <section id="tab-logs" class="tab-content" style="display: none;">
+                <div class="section-header" style="text-align: left; margin-bottom: 1.5rem;">
+                    <span class="section-tag">Audit Trail</span>
+                    <h2 style="font-size: 2rem;">Security & Operational Logs</h2>
+                    <p style="color: var(--text-muted);">Asynchronous logging of administrative and critical application operations.</p>
+                </div>
+
+                <div class="nm-table-wrapper">
+                    <table class="nm-table">
+                        <thead>
+                            <tr>
+                                <th>Timestamp</th>
+                                <th>Action</th>
+                                <th>User</th>
+                                <th>Target Entity</th>
+                                <th>Event Details</th>
+                            </tr>
+                        </thead>
+                        <tbody id="auditLogsTableBody">
+                            <!-- Populated dynamically -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="../js/api.js"></script>
+    <script src="../js/ui.js"></script>
+    <script src="../js/auth.js"></script>
+    <script src="../js/admin.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            Admin.init();
+        });
+    </script>
+</body>
+</html>

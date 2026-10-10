@@ -1,0 +1,420 @@
+/* =============================================================================
+   NEUMORPHISM.CSS - Tactile Neumorphic Controls, Cards, Inputs & Modals
+   ============================================================================= */
+
+/* Neumorphic Raised Panels */
+.nm-card {
+    background: var(--bg-card);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--nm-flat);
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    padding: 1.75rem;
+    transition: all var(--transition-normal);
+}
+
+.nm-card-sm {
+    padding: 1.25rem;
+    border-radius: var(--radius-md);
+    box-shadow: var(--nm-flat-sm);
+}
+
+.nm-card-lg {
+    padding: 2.5rem;
+    border-radius: var(--radius-xl);
+    box-shadow: var(--nm-flat-lg);
+}
+
+.nm-card-inset {
+    background: var(--bg-surface);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--nm-pressed);
+    padding: 1.5rem;
+}
+
+/* Neumorphic Buttons */
+.nm-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.5rem;
+    font-size: 0.95rem;
+    font-weight: 600;
+    font-family: inherit;
+    border-radius: var(--radius-md);
+    border: none;
+    cursor: pointer;
+    background: var(--bg-card);
+    color: var(--text-primary);
+    box-shadow: var(--nm-flat-sm);
+    text-decoration: none;
+    transition: all var(--transition-fast);
+    outline: none;
+    user-select: none;
+}
+
+.nm-btn:hover {
+    box-shadow: var(--nm-button-hover);
+    transform: translateY(-2px);
+    color: var(--primary);
+}
+
+.nm-btn:active, .nm-btn.active {
+    box-shadow: var(--nm-pressed-sm);
+    transform: translateY(1px);
+}
+
+.nm-btn:focus-visible {
+    outline: 2px solid var(--primary);
+    outline-offset: 2px;
+}
+
+.nm-btn-primary {
+    background: linear-gradient(135deg, var(--primary), var(--teal));
+    color: #ffffff !important;
+    box-shadow: var(--nm-primary-shadow);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.nm-btn-primary:hover {
+    background: linear-gradient(135deg, var(--primary-hover), var(--primary));
+    box-shadow: 6px 6px 16px rgba(27, 107, 80, 0.4), -6px -6px 16px rgba(255, 255, 255, 0.9);
+    transform: translateY(-2px);
+    color: #ffffff;
+}
+
+.nm-btn-primary:active {
+    box-shadow: inset 3px 3px 6px rgba(0, 0, 0, 0.25);
+    transform: translateY(1px);
+}
+
+.nm-btn-secondary {
+    background: var(--bg-card);
+    color: var(--text-secondary);
+}
+
+.nm-btn-danger {
+    background: linear-gradient(135deg, #ef4444, #dc2626);
+    color: #ffffff !important;
+    box-shadow: 4px 4px 12px rgba(239, 68, 68, 0.35), -4px -4px 12px #ffffff;
+}
+
+.nm-btn-danger:hover {
+    box-shadow: 6px 6px 16px rgba(239, 68, 68, 0.45);
+    color: #ffffff;
+}
+
+.nm-btn-sm {
+    padding: 0.45rem 0.95rem;
+    font-size: 0.85rem;
+    border-radius: var(--radius-sm);
+}
+
+.nm-btn-lg {
+    padding: 0.95rem 2rem;
+    font-size: 1.05rem;
+    border-radius: var(--radius-lg);
+}
+
+.nm-btn-block {
+    width: 100%;
+}
+
+/* Inset Neumorphic Inputs & Controls */
+.nm-input, .nm-select, .nm-textarea {
+    width: 100%;
+    padding: 0.85rem 1.15rem;
+    font-size: 0.95rem;
+    font-family: inherit;
+    color: var(--text-primary);
+    background: var(--bg-surface);
+    border: 1px solid transparent;
+    border-radius: var(--radius-md);
+    box-shadow: var(--nm-pressed);
+    outline: none;
+    transition: all var(--transition-fast);
+}
+
+.nm-input:focus, .nm-select:focus, .nm-textarea:focus {
+    border-color: rgba(27, 107, 80, 0.4);
+    box-shadow: inset 4px 4px 8px #cbd5e1, inset -4px -4px 8px #ffffff, 0 0 0 3px rgba(27, 107, 80, 0.15);
+}
+
+.nm-input::placeholder, .nm-textarea::placeholder {
+    color: var(--text-subtle);
+}
+
+.nm-textarea {
+    resize: vertical;
+    min-height: 110px;
+}
+
+/* Form Group Layout */
+.form-group {
+    margin-bottom: 1.35rem;
+    text-align: left;
+}
+
+.form-label {
+    display: block;
+    margin-bottom: 0.45rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+}
+
+.form-hint {
+    font-size: 0.775rem;
+    color: var(--text-muted);
+    margin-top: 0.35rem;
+}
+
+.form-error {
+    font-size: 0.8rem;
+    color: var(--danger);
+    margin-top: 0.35rem;
+    display: none;
+}
+
+/* Checkbox & Radio Controls */
+.nm-checkbox-wrapper {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    cursor: pointer;
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    user-select: none;
+}
+
+.nm-checkbox-wrapper input[type="checkbox"] {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 22px;
+    height: 22px;
+    border-radius: var(--radius-sm);
+    background: var(--bg-surface);
+    box-shadow: var(--nm-pressed-sm);
+    cursor: pointer;
+    display: grid;
+    place-content: center;
+    margin-top: 2px;
+    flex-shrink: 0;
+    transition: all var(--transition-fast);
+}
+
+.nm-checkbox-wrapper input[type="checkbox"]:checked {
+    background: var(--primary);
+    box-shadow: 2px 2px 5px rgba(27, 107, 80, 0.4);
+}
+
+.nm-checkbox-wrapper input[type="checkbox"]:checked::before {
+    content: "✓";
+    color: #ffffff;
+    font-size: 0.85rem;
+    font-weight: 800;
+}
+
+/* Status Badges */
+.nm-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.35rem 0.85rem;
+    border-radius: var(--radius-full);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+}
+
+.nm-badge-success {
+    background: var(--success-light);
+    color: #065f46;
+}
+
+.nm-badge-warning {
+    background: var(--warning-light);
+    color: #92400e;
+}
+
+.nm-badge-danger {
+    background: var(--danger-light);
+    color: #991b1b;
+}
+
+.nm-badge-info {
+    background: var(--accent-blue-light);
+    color: #1e40af;
+}
+
+/* Neumorphic Modals */
+.nm-modal-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(15, 23, 42, 0.4);
+    backdrop-filter: blur(6px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    padding: 1.5rem;
+    opacity: 0;
+    visibility: hidden;
+    transition: all var(--transition-normal);
+}
+
+.nm-modal-backdrop.open {
+    opacity: 1;
+    visibility: visible;
+}
+
+.nm-modal {
+    background: var(--bg-card);
+    border-radius: var(--radius-xl);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2), var(--nm-flat-lg);
+    width: 100%;
+    max-width: 620px;
+    max-height: 90vh;
+    overflow-y: auto;
+    padding: 2.25rem;
+    transform: scale(0.95);
+    transition: transform var(--transition-normal);
+}
+
+.nm-modal-backdrop.open .nm-modal {
+    transform: scale(1);
+}
+
+.nm-modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--border-subtle);
+}
+
+.nm-modal-close {
+    background: var(--bg-card);
+    border: none;
+    width: 36px;
+    height: 36px;
+    border-radius: var(--radius-full);
+    box-shadow: var(--nm-flat-sm);
+    cursor: pointer;
+    font-size: 1.25rem;
+    color: var(--text-muted);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all var(--transition-fast);
+}
+
+.nm-modal-close:hover {
+    color: var(--danger);
+    transform: scale(1.08);
+}
+
+/* Toast Notifications Container */
+.nm-toast-container {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    z-index: 2000;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    max-width: 380px;
+}
+
+.nm-toast {
+    background: var(--bg-card);
+    padding: 1rem 1.25rem;
+    border-radius: var(--radius-md);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15), var(--nm-flat);
+    border-left: 5px solid var(--primary);
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+    animation: slideInRight 0.3s ease;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.nm-toast.toast-success { border-left-color: var(--success); }
+.nm-toast.toast-error { border-left-color: var(--danger); }
+.nm-toast.toast-warning { border-left-color: var(--warning); }
+
+@keyframes slideInRight {
+    from {
+        opacity: 0;
+        transform: translateX(100%);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* Neumorphic Tabs */
+.nm-tab-group {
+    display: flex;
+    gap: 0.75rem;
+    background: var(--bg-surface);
+    padding: 0.4rem;
+    border-radius: var(--radius-md);
+    box-shadow: var(--nm-pressed-sm);
+    margin-bottom: 2rem;
+}
+
+.nm-tab-btn {
+    flex: 1;
+    padding: 0.75rem 1rem;
+    border: none;
+    background: transparent;
+    color: var(--text-secondary);
+    font-weight: 600;
+    font-size: 0.9rem;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+}
+
+.nm-tab-btn.active {
+    background: var(--bg-card);
+    color: var(--primary);
+    box-shadow: var(--nm-flat-sm);
+}
+
+/* Empty State Box */
+.nm-empty-state {
+    text-align: center;
+    padding: 3.5rem 2rem;
+    background: var(--bg-card);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--nm-flat-sm);
+    margin: 2rem 0;
+}
+
+.nm-empty-icon {
+    font-size: 3rem;
+    color: var(--text-subtle);
+    margin-bottom: 1rem;
+}
+
+.nm-empty-title {
+    font-size: 1.35rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    color: var(--text-primary);
+}
+
+.nm-empty-desc {
+    color: var(--text-muted);
+    max-width: 420px;
+    margin: 0 auto 1.5rem;
+    font-size: 0.95rem;
+}

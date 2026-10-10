@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shelter Management Portal — PawsConnect</title>
+    
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/neumorphism.css">
+    <link rel="stylesheet" href="../css/responsive.css">
+</head>
+<body>
+
+    <header class="site-header">
+        <div class="app-container">
+            <nav class="nav-bar">
+                <a href="../index.html" class="brand-logo">
+                    <div class="brand-icon">🐾</div>
+                    <span>Paws<span class="dot">Connect</span></span>
+                </a>
+                <span class="nm-badge nm-badge-success" style="font-size: 0.8rem;">Shelter Partner Portal</span>
+                <div class="nav-actions">
+                    <button type="button" onclick="Auth.logout()" class="nm-btn nm-btn-secondary nm-btn-sm">Logout</button>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <div class="dashboard-layout">
+        <!-- Sidebar Navigation -->
+        <aside class="dashboard-sidebar">
+            <div class="sidebar-user">
+                <div class="sidebar-avatar">🏠</div>
+                <div>
+                    <strong id="shelterName" style="display: block; font-size: 0.95rem;">Rescue Shelter</strong>
+                    <span class="nm-badge nm-badge-success" style="font-size: 0.7rem;">SHELTER</span>
+                </div>
+            </div>
+
+            <ul class="sidebar-nav">
+                <li><a href="#pets" class="sidebar-link active" data-tab="pets">🐾 My Pet Listings</a></li>
+                <li><a href="#applications" class="sidebar-link" data-tab="applications">📋 Adoption Applications</a></li>
+                <li><a href="#messages" class="sidebar-link" data-tab="messages">💬 Adopter Messaging</a></li>
+            </ul>
+        </aside>
+
+        <!-- Main Workspace -->
+        <main class="dashboard-main">
+            <!-- 1. Pets Tab -->
+            <section id="tab-pets" class="tab-content">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+                    <div>
+                        <span class="section-tag">Pet Inventory</span>
+                        <h1 style="font-size: 2.25rem;">My Listed Companions</h1>
+                    </div>
+                    <button class="nm-btn nm-btn-primary" onclick="Shelter.openAddModal()">+ Add New Rescue Pet</button>
+                </div>
+
+                <!-- Shelter Stats -->
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1.25rem; margin-bottom: 2.5rem;">
+                    <div class="nm-card-sm" style="text-align: center;">
+                        <span class="form-hint">Total Pets Listed</span>
+                        <div class="hero-stat-value" id="statTotalPets">0</div>
+                    </div>
+                    <div class="nm-card-sm" style="text-align: center;">
+                        <span class="form-hint">Available for Adoption</span>
+                        <div class="hero-stat-value" id="statAvailablePets" style="color: var(--teal);">0</div>
+                    </div>
+                    <div class="nm-card-sm" style="text-align: center;">
+                        <span class="form-hint">Pending Admin Review</span>
+                        <div class="hero-stat-value" id="statPendingPets" style="color: var(--warning);">0</div>
+                    </div>
+                    <div class="nm-card-sm" style="text-align: center;">
+                        <span class="form-hint">Successfully Adopted</span>
+                        <div class="hero-stat-value" id="statAdoptedPets" style="color: var(--success);">0</div>
+                    </div>
+                </div>
+
+                <div class="nm-table-wrapper">
+                    <table class="nm-table">
+                        <thead>
+                            <tr>
+                                <th>Photo</th>
+                                <th>Name</th>
+                                <th>Species / Breed</th>
+                                <th>Age</th>
+                                <th>Status</th>
+                                <th>Feedback / Notes</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="shelterPetsTableBody">
+                            <!-- Populated dynamically -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- 2. Applications Tab -->
+            <section id="tab-applications" class="tab-content" style="display: none;">
+                <div class="section-header" style="text-align: left; margin-bottom: 1.5rem;">
+                    <span class="section-tag">Applicant Review</span>
+                    <h2 style="font-size: 2rem;">Received Adoption Applications</h2>
+                    <p style="color: var(--text-muted);">Review living arrangements, questionnaire responses, and manage application statuses.</p>
+                </div>
+
+                <div class="nm-table-wrapper">
+                    <table class="nm-table">
+                        <thead>
+                            <tr>
+                                <th>App ID</th>
+                                <th>Pet</th>
+                                <th>Applicant</th>
+                                <th>Living Situation</th>
+                                <th>Status</th>
+                                <th>Review</th>
+                            </tr>
+                        </thead>
+                        <tbody id="shelterAppsTableBody">
+                            <!-- Populated dynamically -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- 3. Messages Tab -->
+            <section id="tab-messages" class="tab-content" style="display: none;">
+                <div class="section-header" style="text-align: left; margin-bottom: 1.5rem;">
+                    <span class="section-tag">Direct Communication</span>
+                    <h2 style="font-size: 2rem;">Applicant Conversations</h2>
+                </div>
+
+                <div style="display: grid; grid-template-columns: 320px 1fr; gap: 1.5rem; height: 600px;">
+                    <!-- Threads list -->
+                    <div class="nm-card-inset" style="overflow-y: auto;" id="conversationsList">
+                        <!-- Populated dynamically -->
+                    </div>
+
+                    <!-- Chat pane -->
+                    <div class="nm-card" style="display: flex; flex-direction: column; height: 100%;">
+                        <div style="padding-bottom: 1rem; border-bottom: 1px solid var(--border-subtle); margin-bottom: 1rem;">
+                            <strong id="chatRecipient" style="font-size: 1.1rem; color: var(--primary);">Select a conversation thread</strong>
+                        </div>
+
+                        <div id="messagesContainer" style="flex: 1; overflow-y: auto; padding: 0.5rem; display: flex; flex-direction: column;">
+                            <div style="text-align: center; color: var(--text-muted); margin: auto;">Select a participant on the left to view messages.</div>
+                        </div>
+
+                        <div style="display: flex; gap: 0.75rem; margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--border-subtle);">
+                            <input type="text" class="nm-input" id="chatInput" placeholder="Type your response to the applicant..." onkeydown="if(event.key==='Enter') Shelter.sendMessage()">
+                            <button class="nm-btn nm-btn-primary" onclick="Shelter.sendMessage()">Send</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Add/Edit Pet Modal -->
+    <div class="nm-modal-backdrop" id="petModal">
+        <div class="nm-modal">
+            <div class="nm-modal-header">
+                <h3 id="petModalTitle">Add New Rescue Pet</h3>
+                <button class="nm-modal-close" aria-label="Close dialog">&times;</button>
+            </div>
+
+            <form id="petForm" onsubmit="event.preventDefault(); Shelter.savePet(this);">
+                <input type="hidden" id="petFormId">
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                    <div class="form-group">
+                        <label class="form-label" for="petFormName">Pet Name *</label>
+                        <input type="text" class="nm-input" id="petFormName" placeholder="e.g. Bella" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="petFormSpecies">Species *</label>
+                        <select class="nm-select" id="petFormSpecies" required>
+                            <option value="Dog">Dog</option>
+                            <option value="Cat">Cat</option>
+                            <option value="Rabbit">Rabbit</option>
+                            <option value="Bird">Bird</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                    <div class="form-group">
+                        <label class="form-label" for="petFormBreed">Breed *</label>
+                        <input type="text" class="nm-input" id="petFormBreed" placeholder="e.g. Golden Retriever" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="petFormAge">Age in Months *</label>
+                        <input type="number" class="nm-input" id="petFormAge" min="1" max="300" value="12" required>
+                    </div>
+                </div>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem;">
+                    <div class="form-group">
+                        <label class="form-label" for="petFormGender">Gender</label>
+                        <select class="nm-select" id="petFormGender">
+                            <option value="MALE">Male</option>
+                            <option value="FEMALE">Female</option>
+                            <option value="UNKNOWN">Unknown</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="petFormSize">Size</label>
+                        <select class="nm-select" id="petFormSize">
+                            <option value="SMALL">Small</option>
+                            <option value="MEDIUM" selected>Medium</option>
+                            <option value="LARGE">Large</option>
+                            <option value="EXTRA_LARGE">Extra Large</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="petFormLocation">Location *</label>
+                        <input type="text" class="nm-input" id="petFormLocation" placeholder="e.g. Austin, TX" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="petFormImage">Photo URL (or upload below)</label>
+                    <input type="url" class="nm-input" id="petFormImage" placeholder="https://images.unsplash.com/...">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="petFormUpload">Upload Photo</label>
+                    <input type="file" class="nm-input" id="petFormUpload" accept="image/jpeg,image/png,image/webp" onchange="handleImageUpload(this)">
+                    <div class="form-hint">Accepted formats: JPG, PNG, WEBP (Max 5MB)</div>
+                </div>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                    <div class="form-group">
+                        <label class="form-label" for="petFormHealth">Health Status</label>
+                        <input type="text" class="nm-input" id="petFormHealth" placeholder="e.g. Fully vet checked, healthy">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="petFormVaccination">Vaccination Status</label>
+                        <input type="text" class="nm-input" id="petFormVaccination" placeholder="e.g. Up to date">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="nm-checkbox-wrapper">
+                        <input type="checkbox" id="petFormSpayed">
+                        <span>Spayed / Neutered</span>
+                    </label>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="petFormDesc">Description & Personality *</label>
+                    <textarea class="nm-textarea" id="petFormDesc" placeholder="Describe the pet's story, temperament, and ideal home environment..." required></textarea>
+                </div>
+
+                <div style="display: flex; gap: 1rem; margin-top: 1.5rem;">
+                    <button type="button" class="nm-btn nm-btn-secondary" style="flex: 1;" onclick="UI.closeModal('petModal')">Cancel</button>
+                    <button type="submit" class="nm-btn nm-btn-primary" style="flex: 2;">Save Pet Listing</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Application Review Modal -->
+    <div class="nm-modal-backdrop" id="applicationReviewModal">
+        <div class="nm-modal">
+            <div class="nm-modal-header">
+                <div>
+                    <h3 style="margin-bottom: 0.25rem;">Review Adoption Application</h3>
+                    <p style="font-size: 0.85rem; color: var(--text-muted);">Applicant: <strong id="reviewAdopterName">Adopter</strong> for <strong id="reviewPetName">Pet</strong></p>
+                </div>
+                <button class="nm-modal-close" aria-label="Close dialog">&times;</button>
+            </div>
+
+            <input type="hidden" id="reviewAppId">
+
+            <div class="nm-card-inset" style="margin-bottom: 1.5rem; font-size: 0.9rem;">
+                <p style="margin-bottom: 0.5rem;"><strong>Contact:</strong> <span id="reviewAdopterContact"></span></p>
+                <p style="margin-bottom: 0.5rem;"><strong>Living Situation:</strong> <span id="reviewLiving"></span></p>
+                <p style="margin-bottom: 0.5rem;"><strong>Pet Experience:</strong> <span id="reviewExperience"></span></p>
+                <p style="margin-bottom: 0.5rem;"><strong>Reason for Adopting:</strong> <span id="reviewReason"></span></p>
+                <p style="margin-bottom: 0.5rem;"><strong>Care Commitment:</strong> <span id="reviewCare"></span></p>
+                <p><strong>Current Status:</strong> <span id="reviewCurrentStatus"></span></p>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label" for="reviewNotesInput">Review Notes / Shelter Decision Feedback</label>
+                <textarea class="nm-textarea" id="reviewNotesInput" placeholder="Add feedback, home-check instructions, or rejection reasons..."></textarea>
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0.75rem; margin-top: 1.5rem;">
+                <button class="nm-btn nm-btn-secondary" onclick="Shelter.submitReview('UNDER_REVIEW')">Mark Under Review</button>
+                <button class="nm-btn nm-btn-danger" onclick="Shelter.submitReview('REJECTED')">Reject Application</button>
+                <button class="nm-btn nm-btn-primary" onclick="Shelter.submitReview('APPROVED')">Approve & Complete Adoption</button>
+            </div>
+            <div class="form-hint" style="text-align: center; margin-top: 0.75rem;">
+                Approving this application will atomically mark the pet as ADOPTED and close conflicting pending applications.
+            </div>
+        </div>
+    </div>
+
+    <script src="../js/api.js"></script>
+    <script src="../js/ui.js"></script>
+    <script src="../js/auth.js"></script>
+    <script src="../js/shelter.js"></script>
+    <script>
+        const handleImageUpload = async (input) => {
+            if (input.files && input.files[0]) {
+                const formData = new FormData();
+                formData.append('file', input.files[0]);
+
+                try {
+                    UI.toast('Uploading image...', 'info');
+                    const data = await API.upload('/api/upload', formData);
+                    if (data.success && data.url) {
+                        document.getElementById('petFormImage').value = data.url;
+                        UI.toast('Image uploaded successfully!', 'success');
+                    }
+                } catch (e) {
+                    UI.toast('Upload failed: ' + e.message, 'error');
+                }
+            }
+        };
+
+        document.addEventListener('DOMContentLoaded', () => {
+            Shelter.init();
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,24 @@
+# =============================================================================
+# Database Configuration Template (DO NOT COMMIT SENSITIVE SECRETS)
+# =============================================================================
+
+# JDBC Connection Settings
+db.url=jdbc:mysql://localhost:3306/pet_adoption_db?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC&characterEncoding=UTF-8
+db.username=YOUR_MYSQL_USERNAME
+db.password=YOUR_MYSQL_PASSWORD
+db.driver=com.mysql.cj.jdbc.Driver
+
+# Connection Pool Tuning (HikariCP)
+db.pool.maximumPoolSize=10
+db.pool.minimumIdle=2
+db.pool.idleTimeout=300000
+db.pool.connectionTimeout=10000
+db.pool.maxLifetime=600000
+
+# Application Server Settings
+server.port=8080
+app.session.timeout.minutes=60
+app.cors.allowed.origins=http://localhost:8080,http://127.0.0.1:8080
+
+# Environment: production or test
+app.environment=production

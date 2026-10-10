@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create an Account — PawsConnect</title>
+    
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/neumorphism.css">
+    <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+
+    <header class="site-header">
+        <div class="app-container">
+            <nav class="nav-bar">
+                <a href="index.html" class="brand-logo">
+                    <div class="brand-icon">🐾</div>
+                    <span>Paws<span class="dot">Connect</span></span>
+                </a>
+                <ul class="nav-links">
+                    <li><a href="index.html" class="nav-link">Home</a></li>
+                    <li><a href="pets.html" class="nav-link">Browse Pets</a></li>
+                </ul>
+                <div class="nav-actions">
+                    <a href="login.html" class="nm-btn nm-btn-secondary nm-btn-sm">Sign In</a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main style="flex: 1; display: flex; align-items: center; justify-content: center; padding: 3rem 1rem;">
+        <div style="width: 100%; max-width: 580px;">
+            <div class="nm-card-lg">
+                <div style="text-align: center; margin-bottom: 2rem;">
+                    <div class="brand-icon" style="margin: 0 auto 1.25rem; font-size: 1.75rem;">📝</div>
+                    <h2 style="font-size: 2rem; margin-bottom: 0.5rem;">Create Your Account</h2>
+                    <p style="color: var(--text-muted); font-size: 0.95rem;">
+                        Join as a prospective adopter or register your verified animal rescue shelter.
+                    </p>
+                </div>
+
+                <form id="registerForm" onsubmit="handleRegisterSubmit(event)">
+                    <div class="form-group">
+                        <label class="form-label" for="regRole">I want to register as a: *</label>
+                        <select class="nm-select" id="regRole" required>
+                            <option value="ADOPTER">Pet Adopter (Looking for a companion)</option>
+                            <option value="SHELTER">Animal Shelter / Rescue Organization</option>
+                        </select>
+                        <div class="form-hint">Administrative roles cannot be self-registered and require platform authorization.</div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="regFullName">Full Name or Shelter Organization Name *</label>
+                        <input type="text" class="nm-input" id="regFullName" placeholder="e.g. Sarah Jenkins or Austin Pets Rescue" required>
+                        <div class="form-error"></div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="regEmail">Email Address *</label>
+                        <input type="email" class="nm-input" id="regEmail" placeholder="e.g. name@example.com" required>
+                        <div class="form-error"></div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="regPassword">Password * (Min 6 characters)</label>
+                        <input type="password" class="nm-input" id="regPassword" placeholder="••••••••" minlength="6" required>
+                        <div class="form-error"></div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="regPhone">Phone Number</label>
+                        <input type="tel" class="nm-input" id="regPhone" placeholder="e.g. +1-555-0199">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="regAddress">Address / Location</label>
+                        <input type="text" class="nm-input" id="regAddress" placeholder="e.g. Austin, TX">
+                    </div>
+
+                    <button type="submit" id="regSubmitBtn" class="nm-btn nm-btn-primary nm-btn-block nm-btn-lg" style="margin-top: 1rem;">
+                        Create Account
+                    </button>
+                </form>
+
+                <div style="margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid var(--border-subtle); text-align: center; font-size: 0.9rem; color: var(--text-secondary);">
+                    Already have an account? <a href="login.html" style="font-weight: 600; color: var(--primary);">Sign in here</a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="site-footer">
+        <div class="app-container" style="text-align: center;">
+            <p>&copy; 2026 PawsConnect Platform. Validated Server-Side Registration.</p>
+        </div>
+    </footer>
+
+    <script src="js/api.js"></script>
+    <script src="js/ui.js"></script>
+    <script src="js/validation.js"></script>
+    <script src="js/auth.js"></script>
+    <script>
+        const handleRegisterSubmit = async (e) => {
+            e.preventDefault();
+            const form = document.getElementById('registerForm');
+            if (!Validation.validateForm(form)) return;
+
+            const role = document.getElementById('regRole').value;
+            const fullName = document.getElementById('regFullName').value;
+            const email = document.getElementById('regEmail').value;
+            const password = document.getElementById('regPassword').value;
+            const phone = document.getElementById('regPhone').value;
+            const address = document.getElementById('regAddress').value;
+
+            const btn = document.getElementById('regSubmitBtn');
+            btn.disabled = true;
+            btn.textContent = 'Creating account...';
+
+            try {
+                await Auth.register({ role, fullName, email, password, phone, address });
+            } catch (err) {
+                UI.toast(err.message || 'Registration failed.', 'error');
+                btn.disabled = false;
+                btn.textContent = 'Create Account';
+            }
+        };
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const params = new URLSearchParams(window.location.search);
+            const role = params.get('role');
+            if (role && (role.toUpperCase() === 'SHELTER' || role.toUpperCase() === 'ADOPTER')) {
+                document.getElementById('regRole').value = role.toUpperCase();
+            }
+        });
+    </script>
+</body>
+</html>
